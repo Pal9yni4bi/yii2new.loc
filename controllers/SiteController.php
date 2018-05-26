@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Category;
+use app\models\Product;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -124,5 +126,21 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionProduct(int $id) {
+        $product = Product::findOne($id);
+
+        return $this->render('product', [
+            'product' => $product,
+        ]);
+    }
+
+    public function actionCategory(string $slug) {
+        $category = Category::find()->where(['slug' => $slug])->one();
+
+        return $this->render('category', [
+            'category' => $category,
+        ]);
     }
 }
